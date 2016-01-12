@@ -2,6 +2,7 @@ package hu.kolpet.kolpetbot;
 
 import me.itsghost.jdiscord.DiscordAPI;
 import me.itsghost.jdiscord.DiscordBuilder;
+import me.itsghost.jdiscord.OnlineStatus;
 import me.itsghost.jdiscord.event.EventListener;
 import me.itsghost.jdiscord.events.UserChatEvent;
 import me.itsghost.jdiscord.exception.BadUsernamePasswordException;
@@ -15,7 +16,7 @@ public class KolpetBot implements EventListener{
 	private final static String NAME = "kolpetBot";
 	private final static double VERSION = 0.4;
 	private final static String VERSIONNAME = "ImprovingLittleHelper";
-	private Slots _Slots = new Slots();
+	//private Slots _Slots = new Slots();
 	
 	private DiscordAPI API;
 	
@@ -63,6 +64,8 @@ public class KolpetBot implements EventListener{
 					builder.addString("\n+hello : Small introduction!");
 					builder.addString("\n+soon : Soon.");
 					builder.addString("\n+slots : Spin it");
+					builder.addString("\n+rot {n} {String} : ROT the message to n.");
+					builder.addString("\n+viginere {key} {String} : Decode String with Viginere Cipher using key.");
 					builder.addString("```");
 					break;
 				case "slots":
@@ -76,6 +79,14 @@ public class KolpetBot implements EventListener{
 					builder.addString("***ME SUPERIOR.***\n");
 					builder.addItalic("Beep, Boop.");
 					break;
+				case "rot":
+					builder.addString("*From:* ***" + args[2] + "***\n");
+					builder.addString("*To:* ***" + Encoder.Rot(args[2], Integer.parseInt(args[1])) + "***\n");
+					break;
+				case "viginere":
+					builder.addString("*From:* ***" + args[2] + "***\n");
+					builder.addString("*To:* ***" + Encoder.Viginere(args[2], args[1]) + "***\n");
+					break;
 				/*case "general":
 					builder.addBold("BOTS, ATTEND ME!");
 					reply = builder.build(API);
@@ -87,7 +98,7 @@ public class KolpetBot implements EventListener{
 			e.getGroup().sendMessage(reply);
 		}
 		
-		if(rawMessage.contains("kolpet") && e.getServer().getGroupUserByUsername("kolpet") == null)
+		if(rawMessage.contains("@kolpet") && e.getServer().getGroupUserByUsername("kolpet").getUser().getOnlineStatus() == OnlineStatus.OFFLINE)
 		{
 			MessageBuilder builder = new MessageBuilder();
 			builder.addItalic("Sorry, but my master kolpet is offline.");

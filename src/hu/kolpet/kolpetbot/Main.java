@@ -6,5 +6,4 @@ public class Main {
 		KolpetBot _KolpetBot = new KolpetBot();
 		_KolpetBot.connect();
 	}
-
 }
