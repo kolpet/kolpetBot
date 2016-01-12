@@ -66,6 +66,8 @@ public class KolpetBot implements EventListener{
 					builder.addString("\n+slots : Spin it");
 					builder.addString("\n+rot {n} {String} : ROT the message to n.");
 					builder.addString("\n+viginere {key} {String} : Decode String with Viginere Cipher using key.");
+					builder.addString("\n+eb64 {String} : Encode String into Base64.");
+					builder.addString("\n+db64 {Base64} : Decode Base64 into String.");
 					builder.addString("```");
 					break;
 				case "slots":
@@ -86,6 +88,14 @@ public class KolpetBot implements EventListener{
 				case "viginere":
 					builder.addString("*From:* ***" + args[2] + "***\n");
 					builder.addString("*To:* ***" + Encoder.Viginere(args[2], args[1]) + "***\n");
+					break;
+				case "eb64":
+					builder.addString("*From:* ***" + args[1] + "***\n");
+					builder.addString("*To:* ***" + Encoder.Base64(args[1]) + "***\n");
+					break;
+				case "db64":
+					builder.addString("*From:* ***" + args[1] + "***\n");
+					builder.addString("*To:* ***" + Decoder.Base64(args[1]) + "***\n");
 					break;
 				/*case "general":
 					builder.addBold("BOTS, ATTEND ME!");
