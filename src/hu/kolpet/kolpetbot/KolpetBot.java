@@ -15,7 +15,7 @@ public class KolpetBot implements EventListener{
 	private static String Password;
 	private final static String NAME = "kolpetBot";
 	private final static double VERSION = 0.5;
-	private final static String VERSIONNAME = "ImprovingLittleHelper";
+	private final static String VERSIONNAME = "AlreadyGrowingHelper";
 	//private Slots _Slots = new Slots();
 	
 	private DiscordAPI API;
@@ -35,7 +35,7 @@ public class KolpetBot implements EventListener{
 		String message = rawMessage.substring(1);
 		String[] args = message.split(" ");
 		
-		if("!$;ߣ��|/&~".contains(String.valueOf(cmd)))
+		if("!$;ßŁ×÷|/&~".contains(String.valueOf(cmd)))
 		{
 			if(args[0].equalsIgnoreCase("bots"))
 			{
@@ -75,12 +75,13 @@ public class KolpetBot implements EventListener{
 					break;
 				case "slots":
 					builder.addUserTag(e.getUser(), e.getGroup());
+					builder.addItalic(" this function is only for 4chan gold users.");
 					break;
 				case "soon":
 					builder.addBold("soon");
 					break;
 				case "source":
-					builder.addBold("soon");
+					builder.addString("*But... senpai... You will see me naked....* https://github.com/kolpet/kolpetBot");
 					break;
 				case "robot":
 					builder.addItalic("Me robot. Me clever. ");
@@ -102,6 +103,9 @@ public class KolpetBot implements EventListener{
 				case "db64":
 					builder.addString("*From:* ***" + args[1] + "***\n");
 					builder.addString("*To:* ***" + Decoder.Base64(args[1]) + "***\n");
+					break;
+				case "math":
+					builder.addString("*Of course I know math! 1+1=3, beat that.*");
 					break;
 				/*case "general":
 					builder.addBold("BOTS, ATTEND ME!");
