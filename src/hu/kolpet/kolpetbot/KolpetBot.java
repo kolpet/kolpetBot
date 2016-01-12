@@ -12,7 +12,7 @@ import me.itsghost.jdiscord.message.MessageBuilder;
 
 public class KolpetBot implements EventListener{
 	private final static String Username = "kolpet1997@gmail.com";
-	private final static String Password = "gVsLpVtsaFSPfd5qVx6Z";
+	private final static String Password = "";
 	private final static String NAME = "kolpetBot";
 	private final static double VERSION = 0.5;
 	private final static String VERSIONNAME = "ImprovingLittleHelper";
@@ -63,6 +63,7 @@ public class KolpetBot implements EventListener{
 					builder.addString("\n```+help : Hello?");
 					builder.addString("\n+hello : Small introduction!");
 					builder.addString("\n+soon : Soon.");
+					builder.addString("\n+source : Sauce.");
 					builder.addString("\n+slots : Spin it");
 					builder.addString("\n+rot {n} {String} : ROT the message to n.");
 					builder.addString("\n+viginere {key} {String} : Decode String with Viginere Cipher using key.");
@@ -74,6 +75,9 @@ public class KolpetBot implements EventListener{
 					builder.addUserTag(e.getUser(), e.getGroup());
 					break;
 				case "soon":
+					builder.addBold("soon");
+					break;
+				case "source":
 					builder.addBold("soon");
 					break;
 				case "robot":
