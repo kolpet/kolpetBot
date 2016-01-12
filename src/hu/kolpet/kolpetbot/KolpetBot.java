@@ -36,7 +36,7 @@ public class KolpetBot implements EventListener{
 		String cmd = message.split(" ")[0];
 		String[] args = argsCut(message.split(" "), 1);
 		
-		if("!$;ßŁ×÷|/&~".contains(String.valueOf(key)))
+		if("!$;ß�|/&~".contains(String.valueOf(key)))
 		{
 			if(cmd.equalsIgnoreCase("bots"))
 			{
@@ -72,6 +72,7 @@ public class KolpetBot implements EventListener{
 					builder.addString("\n+vigenere {key} {String} : Decode String with Vigenere Cipher using key.");
 					builder.addString("\n+eb64 {String} : Encode String into Base64.");
 					builder.addString("\n+db64 {Base64} : Decode Base64 into String.");
+					builder.addString("\n+dmorse {long} {short} {String}  : Decode morse String with long and short keys to String.");
 					builder.addString("```");
 					break;
 				case "slots":
@@ -92,6 +93,9 @@ public class KolpetBot implements EventListener{
 					break;
 				case "source":
 					builder.addString("*But... senpai... You will see me naked....* https://github.com/kolpet/kolpetBot");
+					break;
+				case "math":
+					builder.addString("*Of course I know math! 1+1=3, beat that.*");
 					break;
 				case "robot":
 					builder.addItalic("Me robot. Me clever. ");
@@ -118,8 +122,9 @@ public class KolpetBot implements EventListener{
 					builder.addString("*From:* ***" + argsMelt(args, 0) + "***\n");
 					builder.addString("*To:* ***" + Decoder.Base64(argsMelt(args, 0)) + "***\n");
 					break;
-				case "math":
-					builder.addString("*Of course I know math! 1+1=3, beat that.*");
+				case "dmorse":
+					builder.addString("*From:* ***" + argsMelt(args, 2) + "***\n");
+					builder.addString("*To:* ***" + Decoder.Morse(argsMelt(args, 2), args[0], args[1]) + "***\n");
 					break;
 				/*case "general":
 					builder.addBold("BOTS, ATTEND ME!");

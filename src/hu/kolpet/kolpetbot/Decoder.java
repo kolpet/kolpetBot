@@ -8,83 +8,84 @@ public final class Decoder {
 		return new String(Base64.getDecoder().decode(input.getBytes()));
 	}
 	
-	public static String Morse(String input, String dot, String dash)
+	public static String Morse(String input, String dash, String dot)
 	{
+		input = input.replace(dash, "_").replace(dot, ".");
 		String[] letters = input.split(" ");
 		String output = "";
-		for(String letter : letters)
+		for(int i = 0; i < letters.length; i++)
 		{
-			if(letter == dot + dash)
+			if(letters[i] == "._")
 				output += "A";
-			else if (letter == dash + dot + dot + dot)
+			else if (letters[i] == "_...")
 				output += "B";
-			else if(letter == dash + dot + dash + dot)
+			else if(letters[i] == "_._.")
 				output += "C";
-			else if(letter == dash + dot + dot)
+			else if(letters[i] == "_..")
 				output += "D";
-			else if(letter == dot)
+			else if(letters[i] == ".")
 				output += "E";
-			else if(letter == dot + dot + dash + dot)
+			else if(letters[i] == ".._.")
 				output += "F";
-			else if(letter == dash + dash + dot)
+			else if(letters[i] == "__.")
 				output += "G";
-			else if(letter == dot + dot + dot + dot)
+			else if(letters[i] == "....")
 				output += "H";
-			else if(letter == dot + dot)
+			else if(letters[i] == "..")
 				output += "I";
-			else if(letter == dot + dash + dash + dash)
+			else if(letters[i] == ".___")
 				output += "J";
-			else if(letter == dash + dot + dash)
+			else if(letters[i] == "_._")
 				output += "K";
-			else if(letter == dot + dash + dot + dot)
+			else if(letters[i] == "._..")
 				output += "L";
-			else if(letter == dash + dash)
+			else if(letters[i] == "__")
 				output += "M";
-			else if(letter == dash + dot)
+			else if(letters[i] == "_.")
 				output += "N";
-			else if(letter == dash + dash + dash)
+			else if(letters[i] == "___")
 				output += "O";
-			else if(letter == dot + dash + dash + dot)
+			else if(letters[i] == ".__.")
 				output += "P";
-			else if(letter == dash + dash + dot + dash)
+			else if(letters[i] == "__._")
 				output += "Q";
-			else if(letter == dot + dash + dot)
+			else if(letters[i] == "._.")
 				output += "R";
-			else if(letter == dot + dot + dot)
+			else if(letters[i] == "...")
 				output += "S";
-			else if(letter == dash)
+			else if(letters[i] == "_")
 				output += "T";
-			else if(letter == dot + dot + dash)
+			else if(letters[i] == ".._")
 				output += "U";
-			else if(letter == dot + dot + dot + dash)
+			else if(letters[i] == "..._")
 				output += "V";
-			else if(letter == dot + dash + dash)
+			else if(letters[i] == ".__")
 				output += "W";
-			else if(letter == dash + dot + dot + dash)
+			else if(letters[i] == "_.._")
 				output += "X";
-			else if(letter == dash + dot + dash + dash)
+			else if(letters[i] == "_.__")
 				output += "Y";
-			else if(letter == dash + dash + dot + dot)
+			else if(letters[i] == ".__.")
 				output += "Z";
-			else if(letter == dot + dash + dash + dash + dash)
+			else if(letters[i] == ".____")
 				output += "1";
-			else if(letter == dot + dot + dash + dash + dash)
+			else if(letters[i] == "..___")
 				output += "2";
-			else if(letter == dot + dot + dot + dash + dash)
+			else if(letters[i] == "...__")
 				output += "3";
-			else if(letter == dot + dot + dot + dot + dash)
+			else if(letters[i] == "...._")
 				output += "4";
-			else if(letter == dot + dot + dot + dot + dot)
+			else if(letters[i] == ".....")
 				output += "5";
-			else if(letter == dash + dot + dot + dot + dot)
+			else if(letters[i] == "_....")
 				output += "6";
-			else if(letter == dash + dash + dot + dot + dot)
+			else if(letters[i] == "__...")
 				output += "7";
-			else if(letter == dash + dash + dash + dot + dot)
+			else if(letters[i] == "___..")
 				output += "8";
-			else if(letter == dash + dash + dash + dash + dot)
+			else if(letters[i] == "____.")
 				output += "9";
-			else if(letter == dash + dash + dash + dash + dash)
+			else if(letters[i] == "_____")
 				output += "0";
 			else
 				output += "?";
