@@ -11,8 +11,8 @@ import me.itsghost.jdiscord.message.Message;
 import me.itsghost.jdiscord.message.MessageBuilder;
 
 public class KolpetBot implements EventListener{
-	private final static String Username = "kolpet1997@gmail.com";
-	private final static String Password = "";
+	private static String Username;
+	private static String Password;
 	private final static String NAME = "kolpetBot";
 	private final static double VERSION = 0.5;
 	private final static String VERSIONNAME = "ImprovingLittleHelper";
@@ -20,8 +20,10 @@ public class KolpetBot implements EventListener{
 	
 	private DiscordAPI API;
 	
-	public KolpetBot()
+	public KolpetBot(String username, String password)
 	{
+		Username = username;
+		Password = password;
 		API = new DiscordBuilder().build();
 		API.getEventManager().registerListener(this);
 	}
