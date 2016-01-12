@@ -80,6 +80,18 @@ public class KolpetBot implements EventListener{
 				case "soon":
 					builder.addBold("soon");
 					break;
+				case "raise":
+					builder.addBold("( ͡° ͜ʖ ͡°)");
+					break;
+				case "master":
+					if(e.getServer().getGroupUserById("119371468055379968").getUser().getOnlineStatus() == OnlineStatus.OFFLINE)
+						builder.addString("Sensei kolpet is offline at the moment, sorry!");
+					else
+					{
+						builder.addUserTag("kolpet", e.getGroup());
+						builder.addString("-sama, they are asking about you again!");
+					}
+					break;
 				case "source":
 					builder.addString("*But... senpai... You will see me naked....* https://github.com/kolpet/kolpetBot");
 					break;
@@ -115,14 +127,6 @@ public class KolpetBot implements EventListener{
 					
 			}
 			reply = builder.build(API);
-			e.getGroup().sendMessage(reply);
-		}
-		
-		if(rawMessage.contains("@kolpet") && e.getServer().getGroupUserByUsername("kolpet").getUser().getOnlineStatus() == OnlineStatus.OFFLINE)
-		{
-			MessageBuilder builder = new MessageBuilder();
-			builder.addItalic("Sorry, but my master kolpet is offline.");
-			Message reply= builder.build(API);
 			e.getGroup().sendMessage(reply);
 		}
 	}
