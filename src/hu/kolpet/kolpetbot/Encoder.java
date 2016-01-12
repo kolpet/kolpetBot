@@ -69,6 +69,21 @@ public final class Encoder {
 		return output;
 	}
 	
+	public static String Reverse(String input)
+	{
+	    String output = "";
+	    for (char ch : input.toCharArray()) {
+	        if (ch >= 65 && ch <= 90) {
+	        	output += (char) (-1 * (ch - 155));
+	        } else if (ch >= 97 && ch <= 122) {
+	        	output += (char) (-1 * (ch - 219));
+	        } else {
+	        	output += ch;
+	        }
+	    }
+	    return output;
+	}
+	
 	public static String Base64(String input)
 	{
 		return new String(Base64.getEncoder().encode(input.getBytes()));
