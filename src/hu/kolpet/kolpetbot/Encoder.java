@@ -69,7 +69,7 @@ public final class Encoder {
 		return output;
 	}
 	
-	public static String Base64Encode(String input)
+	public static String Base64(String input)
 	{
 		return new String(Base64.getEncoder().encode(input.getBytes()));
 	}
