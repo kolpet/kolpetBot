@@ -1,5 +1,7 @@
 package hu.kolpet.kolpetbot;
 
+import java.util.Base64;
+
 public final class Encoder {
 	public static String Rot(String input, int value)
 	{
@@ -65,5 +67,10 @@ public final class Encoder {
 	        x++;
 	    }
 		return output;
+	}
+	
+	public static String Base64Encode(String input)
+	{
+		return new String(Base64.getEncoder().encode(input.getBytes()));
 	}
 }

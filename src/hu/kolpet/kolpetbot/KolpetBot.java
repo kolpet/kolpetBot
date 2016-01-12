@@ -14,7 +14,7 @@ public class KolpetBot implements EventListener{
 	private final static String Username = "kolpet1997@gmail.com";
 	private final static String Password = "gVsLpVtsaFSPfd5qVx6Z";
 	private final static String NAME = "kolpetBot";
-	private final static double VERSION = 0.4;
+	private final static double VERSION = 0.5;
 	private final static String VERSIONNAME = "ImprovingLittleHelper";
 	//private Slots _Slots = new Slots();
 	
