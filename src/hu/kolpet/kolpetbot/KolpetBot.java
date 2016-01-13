@@ -1,5 +1,7 @@
 package hu.kolpet.kolpetbot;
 
+import java.util.logging.Logger;
+
 import me.itsghost.jdiscord.DiscordAPI;
 import me.itsghost.jdiscord.DiscordBuilder;
 import me.itsghost.jdiscord.OnlineStatus;
@@ -16,6 +18,8 @@ public class KolpetBot implements EventListener{
 	private final static String NAME = "kolpetBot";
 	private final static double VERSION = 0.6;
 	private final static String VERSIONNAME = "ValuableLittleHelper";
+	public static final Logger logger =
+		        Logger.getLogger(KolpetBot.class.getName());
 	//private Slots _Slots = new Slots();
 	
 	private DiscordAPI API;
