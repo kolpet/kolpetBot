@@ -47,24 +47,27 @@ public final class Encoder {
 		}
 		String output = "";
 		for (char ch : input.toCharArray()) {
-			if(x == rot.length) x = 0;
-	        if (ch >= 65 && ch <= 90) {
-	            if (ch + rot[x] <= 90) {
-	                output += (char) (ch + rot[x]);
-	            } else {
-	            	output += (char) (ch + rot[x] - 26);
-	            }
-
-	        } else if (ch >= 97 && ch <= 122) {
-	            if (ch + rot[x] <= 122) {
-	            	output += (char) (ch + rot[x]);
-	            } else {
-	            	output += (char) (ch + rot[x] - 26);
-	            }
-	        } else {
-	        	output += ch;
-	        }
-	        x++;
+			if(ch != ' ')
+			{
+				if(x == rot.length) x = 0;
+		        if (ch >= 65 && ch <= 90) {
+		            if (ch + rot[x] <= 90) {
+		                output += (char) (ch + rot[x]);
+		            } else {
+		            	output += (char) (ch + rot[x] - 26);
+		            }
+	
+		        } else if (ch >= 97 && ch <= 122) {
+		            if (ch + rot[x] <= 122) {
+		            	output += (char) (ch + rot[x]);
+		            } else {
+		            	output += (char) (ch + rot[x] - 26);
+		            }
+		        } else {
+		        	output += ch;
+		        }
+		        x++;
+			}
 	    }
 		return output;
 	}
