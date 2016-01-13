@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 public class Main {
 	
 	public static void main(String[] args) {
-		String fileName = "C://Users//kolpet//git//kolpetBot//login.txt";
+		String fileName = "login.txt";
 		try (Stream<String> stream = Files.lines(Paths.get(fileName)))
 		{
 			Object[] lines = stream.toArray();
