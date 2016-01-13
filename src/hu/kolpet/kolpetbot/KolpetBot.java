@@ -20,7 +20,7 @@ public class KolpetBot implements EventListener{
 	private final static String VERSIONNAME = "ValuableLittleHelper";
 	public static final Logger logger =
 		        Logger.getLogger(KolpetBot.class.getName());
-	//private Slots _Slots = new Slots();
+	private Slots _Slots = new Slots();
 	
 	private DiscordAPI API;
 	
@@ -64,8 +64,8 @@ public class KolpetBot implements EventListener{
 					builder.addBold("v" + Double.toString(VERSION) + " (" + VERSIONNAME + ")");
 					break;
 				case "help":
-					builder.addItalic("Hello, I am ");
-					builder.addBold(NAME);
+					builder.addItalic("Hello, I am");
+					builder.addString(" ***" +NAME + "*** ");
 					builder.addItalic(", and these are my commands:");
 					builder.addString("\n```+help : Hello?");
 					builder.addString("\n+hello : Small introduction!");
@@ -74,6 +74,9 @@ public class KolpetBot implements EventListener{
 					builder.addString("\n+slots : Spin it");
 					builder.addString("\n+rot {n} {String} : ROT the message to n.");
 					builder.addString("\n+vigenere {key} {String} : Decode String with Vigenere Cipher using key.");
+					builder.addString("\n+atbash {String} : Decode String with Atbash");
+					builder.addString("\n+eascii {String} : Encode a String with ASCII numbers");
+					builder.addString("\n+dascii {String} : Decode a String with ASCII numbers");
 					builder.addString("\n+eb64 {String} : Encode String into Base64.");
 					builder.addString("\n+db64 {Base64} : Decode Base64 into String.");
 					builder.addString("\n+dmorse {long} {short} {String}  : Decode morse String with long and short keys to String.");
@@ -81,7 +84,12 @@ public class KolpetBot implements EventListener{
 					break;
 				case "slots":
 					builder.addUserTag(e.getUser(), e.getGroup());
-					builder.addItalic(" this function is only for 4chan gold users.");
+					if(args.length == 0)
+						_Slots.Spin(e.getUser().getUser(), builder);
+					else if(args[0] == "stats") //builder.addItalic(" this function is only for 4chan gold users.");
+						_Slots.getStats(e.getUser().getUser(), builder);
+					else
+						builder.addItalic("Either nothing or stats, don't try to innovate me.");
 					break;
 				case "soon":
 					builder.addBold("soon");
@@ -108,15 +116,23 @@ public class KolpetBot implements EventListener{
 					break;
 				case "rot":
 					builder.addString("*From:* ***" + argsMelt(args, 1) + "***\n");
-					builder.addString("*To:* ***" + Encoder.Rot(argsMelt(args, 1), Integer.parseInt(args[0])) + "***\n");
+					builder.addString("*To:* ***" + Decoder.Rot(argsMelt(args, 1), Integer.parseInt(args[0])) + "***\n");
 					break;
 				case "vigenere":
 					builder.addString("*From:* ***" + argsMelt(args, 1) + "***\n");
-					builder.addString("*To:* ***" + Encoder.Viginere(argsMelt(args, 1), args[0]) + "***\n");
+					builder.addString("*To:* ***" + Decoder.Viginere(argsMelt(args, 1), args[0]) + "***\n");
 					break;
-				case "reverse":
+				case "atbash":
 					builder.addString("*From:* ***" + argsMelt(args, 0) + "***\n");
-					builder.addString("*To:* ***" + Encoder.Reverse(argsMelt(args, 0)) + "***\n");
+					builder.addString("*To:* ***" + Decoder.Reverse(argsMelt(args, 0)) + "***\n");
+					break;
+				case "eascii":
+					builder.addString("*From:* ***" + argsMelt(args, 0) + "***\n");
+					builder.addString("*To:* ***" + Encoder.ASCII(argsMelt(args, 0)) + "***\n");
+					break;
+				case "dascii":
+					builder.addString("*From:* ***" + argsMelt(args, 0) + "***\n");
+					builder.addString("*To:* ***" + Decoder.ASCII(argsMelt(args, 0)) + "***\n");
 					break;
 				case "eb64":
 					builder.addString("*From:* ***" + argsMelt(args, 0) + "***\n");
