@@ -12,6 +12,8 @@ import me.itsghost.jdiscord.talkable.User;
 public class Slots {
 	private Map<SlotsUser, Long> Gamblers = new HashMap<SlotsUser, Long>();
 	private final static int Cooldown = 10000;
+	private int SessionLoses = 0;
+	private int SessionWins = 0;
 	
 	public Slots()
 	{
@@ -49,11 +51,13 @@ public class Slots {
 		{
 			builder.addItalic("Congratulations!");
 			su.addWin();
+			SessionWins++;
 		}
 		else
 		{
 			builder.addItalic("Sorry, but you lost!");
 			su.addLoss();
+			SessionLoses++;
 		}
 		return builder;
 	}
