@@ -10,7 +10,10 @@ public class Main {
 	public static void main(String[] args) {
 		BufferedReader reader = null;
 		try {
-			reader = new BufferedReader(new FileReader("login.txt"));
+			if(System.getProperty("os.name").startsWith("Windows"))
+				reader = new BufferedReader(new FileReader("login.txt"));
+			else
+				reader = new BufferedReader(new FileReader("/home/kolpet/login.txt"));
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
