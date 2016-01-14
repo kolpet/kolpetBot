@@ -1,23 +1,28 @@
 package hu.kolpet.kolpetbot;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import me.itsghost.jdiscord.DiscordAPI;
 import me.itsghost.jdiscord.DiscordBuilder;
 import me.itsghost.jdiscord.OnlineStatus;
+import me.itsghost.jdiscord.Role;
 import me.itsghost.jdiscord.event.EventListener;
 import me.itsghost.jdiscord.events.UserChatEvent;
 import me.itsghost.jdiscord.exception.BadUsernamePasswordException;
 import me.itsghost.jdiscord.exception.DiscordFailedToConnectException;
 import me.itsghost.jdiscord.message.Message;
 import me.itsghost.jdiscord.message.MessageBuilder;
+import me.itsghost.jdiscord.talkable.GroupUser;
+import me.itsghost.jdiscord.talkable.User;
 
 public class KolpetBot implements EventListener{
 	private static String Username;
 	private static String Password;
 	private final static String NAME = "kolpetBot";
 	private final static double VERSION = 0.6;
-	private final static String VERSIONNAME = "ValuableLittleHelper";
+	private final static String VERSIONNAME = "ValuableSmallHelper";
 	public static final Logger logger =
 		        Logger.getLogger(KolpetBot.class.getName());
 	private Slots _Slots = new Slots();
@@ -39,6 +44,7 @@ public class KolpetBot implements EventListener{
 		String message = rawMessage.substring(1);
 		String cmd = message.split(" ")[0];
 		String[] args = argsCut(message.split(" "), 1);
+		boolean noMessage = false;
 		
 		if("!$;ÃŸÅ|/&~".contains(String.valueOf(key)))
 		{
@@ -47,16 +53,15 @@ public class KolpetBot implements EventListener{
 				MessageBuilder builder = new MessageBuilder();
 				Message reply;
 				builder.addItalic(NAME + ", lining up! Current version: ");
-				builder.addBold("v" + Double.toString(VERSION) + " (" + VERSIONNAME + ")");
+				builder.addString("***v" + Double.toString(VERSION) + " (" + VERSIONNAME + ")***");
 				reply = builder.build(API);
 				e.getGroup().sendMessage(reply);
 			}
 		}
-		else if(key == '+')
+		else if(key == '+' && !getUserRoles(e.getUser()).contains("Bots"))
 		{
 			MessageBuilder builder = new MessageBuilder();
 			Message reply;
-			
 			switch(cmd.toLowerCase())
 			{
 				case "hello":
@@ -85,7 +90,10 @@ public class KolpetBot implements EventListener{
 				case "slots":
 					builder.addUserTag(e.getUser(), e.getGroup());
 					if(args.length == 0)
-						_Slots.Spin(e.getUser().getUser(), builder);
+						if(!_Slots.onCooldown(e.getUser().getUser()))
+							_Slots.Spin(e.getUser().getUser(), builder);
+						else
+							noMessage = true;
 					else if(args[0] == "stats") //builder.addItalic(" this function is only for 4chan gold users.");
 						_Slots.getStats(e.getUser().getUser(), builder);
 					else
@@ -153,9 +161,12 @@ public class KolpetBot implements EventListener{
 					e.getGroup().sendMessage("!bots");*/
 					
 			}
-			reply = builder.build(API);
-			e.getGroup().sendMessage(reply);
-		}
+			if(!noMessage)
+			{
+				reply = builder.build(API);
+				e.getGroup().sendMessage(reply);
+			}
+		}		
 	}
 	
 	public void connect()
@@ -183,6 +194,16 @@ public class KolpetBot implements EventListener{
 		for(int i = fromIndex + 1; i < input.length; i++)
 		{
 			output += " " + input[i];
+		}
+		return output;
+	}
+	
+	private Set<String> getUserRoles(GroupUser gu)
+	{
+		Set<String> output = new HashSet<String>();
+		for(Role role : gu.getRoles())
+		{
+			output.add(role.getName());
 		}
 		return output;
 	}

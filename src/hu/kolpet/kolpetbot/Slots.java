@@ -11,7 +11,7 @@ import me.itsghost.jdiscord.talkable.User;
 
 public class Slots {
 	private Map<SlotsUser, Long> Gamblers = new HashMap<SlotsUser, Long>();
-	private final static int Cooldown = 5000;
+	private final static int Cooldown = 10000;
 	
 	public Slots()
 	{
@@ -24,14 +24,15 @@ public class Slots {
 		if(!contains(u))
 		{
 			su = new SlotsUser(u.getUsername());
-			Gamblers.put(su, System.nanoTime());
 		}
 		else
 		{
 			su = getSlotsUser(u);
+			Gamblers.remove(su);
 		}
+		Gamblers.put(su, System.nanoTime());
 		
-		String[] faces = {":)",":D",";)",":P",":o",":(","8-)", ":')", ":'("};
+		String[] faces = {":smile:",":smiley:",":smirk:",":grin:",":grinning:",":wink:",":sunglasses:", ":laughing:", ":disappointed:"};
 		Random rand = new Random();
 		
 		builder.addItalic(" spins the slot machine...\n");
@@ -40,9 +41,9 @@ public class Slots {
 						rand.nextInt(faces.length), 
 						rand.nextInt(faces.length)};
 		
-		builder.addItalic("...And its ( " + faces[result[0]] + 
-						  " : " + faces[result[1]] + 
-						  " : " + faces[result[2]] + " ) \n");
+		builder.addString("**...And its ( " + faces[result[0]] + 
+						  " " + faces[result[1]] + 
+						  " " + faces[result[2]] + " )** \n");
 		
 		if(result[0] == result[1] && result[1] == result[2])
 		{
@@ -67,7 +68,7 @@ public class Slots {
 		else
 		{
 			su = getSlotsUser(u);
-			builder.addItalic(", here are your stats:\n");
+			builder.addItalic(", here are your stats (for my session):\n");
 			builder.addString("* -spins:* **" + su.getSpins() + "**");
 			builder.addString("* -wins:* **" + su.getWins() + "**");
 			builder.addString("* -loses:* **" + su.getLoses() + "**");
