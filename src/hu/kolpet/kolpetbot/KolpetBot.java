@@ -15,7 +15,6 @@ import me.itsghost.jdiscord.exception.DiscordFailedToConnectException;
 import me.itsghost.jdiscord.message.Message;
 import me.itsghost.jdiscord.message.MessageBuilder;
 import me.itsghost.jdiscord.talkable.GroupUser;
-import me.itsghost.jdiscord.talkable.User;
 
 public class KolpetBot implements EventListener{
 	private static String Username;
@@ -67,6 +66,18 @@ public class KolpetBot implements EventListener{
 				case "hello":
 					builder.addItalic(NAME + ", reporting in! Current version: ");
 					builder.addBold("v" + Double.toString(VERSION) + " (" + VERSIONNAME + ")");
+					break;
+				case "shutdown":
+					if(e.getUser().getUser().getUsername().equalsIgnoreCase("kolpet"))
+					{
+						builder.addString("*See you later!*");
+						API.stop();
+						reply = builder.build(API);
+						e.getGroup().sendMessage(reply);
+						System.exit(0);
+					}
+					else
+						builder.addString("***You are not my master!***");
 					break;
 				case "help":
 					builder.addItalic("Hello, I am");
@@ -159,7 +170,6 @@ public class KolpetBot implements EventListener{
 					reply = builder.build(API);
 					e.getGroup().sendMessage(reply);
 					e.getGroup().sendMessage("!bots");*/
-					
 			}
 			if(!noMessage)
 			{
