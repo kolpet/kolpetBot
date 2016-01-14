@@ -105,12 +105,15 @@ public class KolpetBot implements EventListener{
 							_Slots.Spin(e.getUser().getUser(), builder);
 						else
 							noMessage = true;
-					else if(args[0] == "stats") //builder.addItalic(" this function is only for 4chan gold users.");
+					else if(args[0].equalsIgnoreCase("stats")) //builder.addItalic(" this function is only for 4chan gold users.");
 						_Slots.getStats(e.getUser().getUser(), builder);
 					else
 						builder.addItalic("Either nothing or stats, don't try to innovate me.");
 					break;
 				case "soon":
+					builder.addBold("soon");
+					break;
+				case "money":
 					builder.addBold("soon");
 					break;
 				case "master":
