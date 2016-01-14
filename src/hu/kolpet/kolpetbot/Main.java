@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.util.Scanner;
 
 public class Main {
@@ -17,8 +16,11 @@ public class Main {
 				reader = new BufferedReader(new FileReader("login.txt"));
 			else
 				reader = new BufferedReader(new FileReader("./login.txt"));
+			reader.close();
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		String line = null;
 		String[] lines = new String[2];
@@ -35,10 +37,15 @@ public class Main {
 		String password =lines[1];
 		_KolpetBot = new KolpetBot(username, password);
 		_KolpetBot.connect();
-	}
-	
-	public static void stop()
-	{
-		_KolpetBot = null;
+		
+		Scanner scanner = new Scanner(System.in);
+		while(true)
+		{
+			if (scanner.next().equalsIgnoreCase("exit"))
+			{
+				scanner.close();
+				_KolpetBot.shutdown();
+			}
+		}
 	}
 }

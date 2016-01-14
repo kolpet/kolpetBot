@@ -71,9 +71,9 @@ public class KolpetBot implements EventListener{
 					if(e.getUser().getUser().getUsername().equalsIgnoreCase("kolpet"))
 					{
 						builder.addString("*See you later!*");
-						API.stop();
 						reply = builder.build(API);
 						e.getGroup().sendMessage(reply);
+						API.stop();
 						System.exit(0);
 					}
 					else
@@ -177,6 +177,12 @@ public class KolpetBot implements EventListener{
 				e.getGroup().sendMessage(reply);
 			}
 		}		
+	}
+	
+	public void shutdown()
+	{
+		API.stop();
+		System.exit(0);
 	}
 	
 	public void connect()
