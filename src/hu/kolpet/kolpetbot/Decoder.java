@@ -1,7 +1,6 @@
 package hu.kolpet.kolpetbot;
 
 import java.util.Base64;
-import java.util.logging.Level;
 
 public final class Decoder {
 	public static String Base64(String input)

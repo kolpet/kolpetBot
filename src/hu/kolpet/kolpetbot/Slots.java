@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
-
 import java.util.Random;
 
 import me.itsghost.jdiscord.message.MessageBuilder;
