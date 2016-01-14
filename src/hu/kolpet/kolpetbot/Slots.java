@@ -3,6 +3,7 @@ package hu.kolpet.kolpetbot;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import java.util.Random;
 
 import me.itsghost.jdiscord.message.MessageBuilder;
@@ -10,7 +11,7 @@ import me.itsghost.jdiscord.talkable.User;
 
 public class Slots {
 	private Map<SlotsUser, Long> Gamblers = new HashMap<SlotsUser, Long>();
-	private final static int Cooldown = 5000;
+	private final static int Cooldown = 10000;
 	
 	public Slots()
 	{
@@ -22,31 +23,56 @@ public class Slots {
 		SlotsUser su;
 		if(!contains(u))
 		{
-			su = new SlotsUser(u);
-			Gamblers.put(su, System.nanoTime());
+			su = new SlotsUser(u.getUsername());
 		}
 		else
 		{
 			su = getSlotsUser(u);
+			Gamblers.remove(su);
 		}
+		Gamblers.put(su, System.nanoTime());
 		
-		String[] faces = {":)",":D",";)",":P",":o",":(","8-)", ":')", ":'("};
+		String[] faces = {":smile:",":smiley:",":smirk:",":grin:",":grinning:",":wink:",":sunglasses:", ":laughing:", ":disappointed:"};
 		Random rand = new Random();
-		builder.addItalic(" spins the slot machine...");
+		
+		builder.addItalic(" spins the slot machine...\n");
 		
 		int[] result = {rand.nextInt(faces.length), 
 						rand.nextInt(faces.length), 
 						rand.nextInt(faces.length)};
 		
-		builder.addItalic("...And its " + faces[result[0]] + 
-						  " : " + faces[result[1]] + 
-						  " : " + faces[result[2]]);
+		builder.addString("**...And its ( " + faces[result[0]] + 
+						  " " + faces[result[1]] + 
+						  " " + faces[result[2]] + " )** \n");
 		
 		if(result[0] == result[1] && result[1] == result[2])
 		{
 			builder.addItalic("Congratulations!");
+			su.addWin();
 		}
-		
+		else
+		{
+			builder.addItalic("Sorry, but you lost!");
+			su.addLoss();
+		}
+		return builder;
+	}
+	
+	public MessageBuilder getStats(User u, MessageBuilder builder)
+	{
+		SlotsUser su;
+		if(!contains(u))
+		{
+			builder.addItalic("You haven't played yet!");
+		}
+		else
+		{
+			su = getSlotsUser(u);
+			builder.addItalic(", here are your stats (for my session):\n");
+			builder.addString("* -spins:* **" + su.getSpins() + "**");
+			builder.addString("* -wins:* **" + su.getWins() + "**");
+			builder.addString("* -loses:* **" + su.getLoses() + "**");
+		}
 		return builder;
 	}
 	
@@ -62,7 +88,7 @@ public class Slots {
 	{
 		for(Entry<SlotsUser, Long> entry : Gamblers.entrySet())
 		{
-			if(entry.getKey().getUser() == u) return true;
+			if(entry.getKey().getName() == u.getUsername()) return true;
 		}
 		return false;
 	}
@@ -71,7 +97,7 @@ public class Slots {
 	{
 		for(Entry<SlotsUser, Long> entry : Gamblers.entrySet())
 		{
-			if(entry.getKey().getUser() == u) return entry.getKey();
+			if(entry.getKey().getName() == u.getUsername()) return entry.getKey();
 		}
 		return null;
 	}
@@ -80,25 +106,25 @@ public class Slots {
 	{
 		for(Entry<SlotsUser, Long> entry : Gamblers.entrySet())
 		{
-			if(entry.getKey().getUser() == u) return entry.getValue();
+			if(entry.getKey().getName() == u.getUsername()) return entry.getValue();
 		}
 		return -1L;
 	}
 	
 	public class SlotsUser
 	{
-		private User user;
+		private String name;
 		private int spins = 0;
 		private int wins = 0;
-		private int losses = 0;
+		private int loses = 0;
 		
-		public SlotsUser(User u)
+		public SlotsUser(String name)
 		{
-			user = u;
+			this.name = name;
 		}
 		
-		public User getUser() {
-			return user;
+		public String getName() {
+			return name;
 		}
 
 		public int getSpins() {
@@ -113,12 +139,12 @@ public class Slots {
 			wins++;
 		}
 
-		public int getLosses() {
-			return losses;
+		public int getLoses() {
+			return loses;
 		}
 
 		public void addLoss() {
-			losses++;
+			loses++;
 		}
 	}
 }

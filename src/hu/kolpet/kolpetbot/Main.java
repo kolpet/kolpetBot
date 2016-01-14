@@ -1,23 +1,37 @@
 package hu.kolpet.kolpetbot;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.stream.Stream;
 
 public class Main {
 	
 	public static void main(String[] args) {
-		String fileName = "login.txt";
-		try (Stream<String> stream = Files.lines(Paths.get(fileName)))
-		{
-			Object[] lines = stream.toArray();
-			String username = String.valueOf(lines[0]);
-			String password = String.valueOf(lines[1]);
-			KolpetBot _KolpetBot = new KolpetBot(username, password);
-			_KolpetBot.connect();
-		} catch (IOException e){
+		BufferedReader reader = null;
+		try {
+			if(System.getProperty("os.name").startsWith("Windows"))
+				reader = new BufferedReader(new FileReader("login.txt"));
+			else
+				reader = new BufferedReader(new FileReader("./login.txt"));
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		String line = null;
+		String[] lines = new String[2];
+		int x = 0;
+		try {
+			while ((line = reader.readLine()) != null) {
+				lines[x] = line;
+				x++;
+			}
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		String username = lines[0];
+		String password =lines[1];
+		KolpetBot _KolpetBot = new KolpetBot(username, password);
+		_KolpetBot.connect();
 	}
 }
