@@ -20,7 +20,7 @@ public class Slots {
 		
 	}
 	
-	public MessageBuilder Spin(User u, MessageBuilder builder)
+	public void Spin(User u, MessageBuilder builder)
 	{
 		SlotsUser su;
 		if(!contains(u))
@@ -59,10 +59,9 @@ public class Slots {
 			su.addLoss();
 			SessionLoses++;
 		}
-		return builder;
 	}
 	
-	public MessageBuilder getStats(User u, MessageBuilder builder)
+	public void getUserStats(User u, MessageBuilder builder)
 	{
 		SlotsUser su;
 		if(!contains(u))
@@ -73,11 +72,18 @@ public class Slots {
 		{
 			su = getSlotsUser(u);
 			builder.addItalic(", here are your stats (for my session):\n");
-			builder.addString("* -spins:* **" + su.getSpins() + "**");
+			builder.addString("* -spins:* **" + (su.getWins() + su.getLoses()) + "**");
 			builder.addString("* -wins:* **" + su.getWins() + "**");
 			builder.addString("* -loses:* **" + su.getLoses() + "**");
 		}
-		return builder;
+	}
+	
+	public void getStats(MessageBuilder builder)
+	{
+		builder.addString(" *, here are the global stats (for my session):*\n");
+		builder.addString(" *-spins:* ***" + (SessionWins + SessionLoses) + "***\n");
+		builder.addString(" *-wins:* ***" + SessionWins + "***\n");
+		builder.addString(" *-loses:* ***" + SessionLoses + "***");
 	}
 	
 	public boolean onCooldown(User u)
@@ -118,7 +124,6 @@ public class Slots {
 	public class SlotsUser
 	{
 		private String name;
-		private int spins = 0;
 		private int wins = 0;
 		private int loses = 0;
 		
@@ -129,10 +134,6 @@ public class Slots {
 		
 		public String getName() {
 			return name;
-		}
-
-		public int getSpins() {
-			return spins;
 		}
 
 		public int getWins() {
