@@ -20,8 +20,8 @@ public class KolpetBot implements EventListener{
 	private static String Username;
 	private static String Password;
 	private final static String NAME = "kolpetBot";
-	private final static double VERSION = 0.6;
-	private final static String VERSIONNAME = "ValuableSmallHelper";
+	private final static double VERSION = 1.0;
+	private final static String VERSIONNAME = "AlreadyGrownupHelper";
 	public static final Logger logger =
 		        Logger.getLogger(KolpetBot.class.getName());
 	private Slots _Slots = new Slots();

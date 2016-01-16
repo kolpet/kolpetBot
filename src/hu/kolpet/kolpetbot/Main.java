@@ -16,7 +16,6 @@ public class Main {
 				reader = new BufferedReader(new FileReader("login.txt"));
 			else
 				reader = new BufferedReader(new FileReader("./login.txt"));
-			reader.close();
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		} catch (IOException e) {
@@ -37,6 +36,12 @@ public class Main {
 		String password =lines[1];
 		_KolpetBot = new KolpetBot(username, password);
 		_KolpetBot.connect();
+		try {
+			reader.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		Scanner scanner = new Scanner(System.in);
 		while(true)
