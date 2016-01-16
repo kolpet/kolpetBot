@@ -18,8 +18,6 @@ public class Main {
 				reader = new BufferedReader(new FileReader("./login.txt"));
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 		String line = null;
 		String[] lines = new String[2];

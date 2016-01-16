@@ -77,7 +77,11 @@ public class KolpetBot implements EventListener{
 						System.exit(0);
 					}
 					else
-						builder.addString("***You are not my master!***");
+					{
+						builder.addString("***");
+						builder.addUserTag(e.getUser().getUser().getUsername(), e.getGroup());
+						builder.addString(" , you are not my master!***");
+					}
 					break;
 				case "help":
 					builder.addItalic("Hello, I am");
@@ -86,6 +90,7 @@ public class KolpetBot implements EventListener{
 					builder.addString("\n```+help : Hello?");
 					builder.addString("\n+hello : Small introduction!");
 					builder.addString("\n+soon : Soon.");
+					builder.addString("\n+master : Who's your master, and what does he do.");
 					builder.addString("\n+source : Sauce.");
 					builder.addString("\n+slots : Spin it");
 					builder.addString("\n+rot {n} {String} : ROT the message to n.");
@@ -106,7 +111,7 @@ public class KolpetBot implements EventListener{
 						else
 							noMessage = true;
 					else if(args[0].equalsIgnoreCase("stats")) //builder.addItalic(" this function is only for 4chan gold users.");
-						_Slots.getStats(e.getUser().getUser(), builder);
+						_Slots.getStats(builder);
 					else
 						builder.addItalic("Either nothing or stats, don't try to innovate me.");
 					break;
@@ -118,11 +123,11 @@ public class KolpetBot implements EventListener{
 					break;
 				case "master":
 					if(e.getServer().getGroupUserById("119371468055379968").getUser().getOnlineStatus() == OnlineStatus.OFFLINE)
-						builder.addString("Sensei kolpet is offline at the moment, sorry!");
+						builder.addString("*Sensei kolpet is offline at the moment, sorry!*");
 					else
 					{
 						builder.addUserTag("kolpet", e.getGroup());
-						builder.addString("-sama, they are asking about you again!");
+						builder.addString(" *-sama, they are asking about you again!*");
 					}
 					break;
 				case "source":
@@ -179,7 +184,14 @@ public class KolpetBot implements EventListener{
 				reply = builder.build(API);
 				e.getGroup().sendMessage(reply);
 			}
-		}		
+		}
+		else if(rawMessage.contains("kolpet") && e.getServer().getGroupUserById("119371468055379968").getUser().getOnlineStatus() == OnlineStatus.OFFLINE)
+		{
+			MessageBuilder builder = new MessageBuilder();
+			builder.addString("*Sensei kolpet is offline at the moment, sorry!*");
+			Message reply = builder.build(API);
+			e.getGroup().sendMessage(reply);
+		}
 	}
 	
 	public void shutdown()
