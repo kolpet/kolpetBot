@@ -185,13 +185,13 @@ public class KolpetBot implements EventListener{
 				e.getGroup().sendMessage(reply);
 			}
 		}
-		else if(rawMessage.contains("kolpet") && e.getServer().getGroupUserById("119371468055379968").getUser().getOnlineStatus() == OnlineStatus.OFFLINE)
+		/*else if(rawMessage.contains("kolpet") && e.getServer().getGroupUserById("119371468055379968").getUser().getOnlineStatus() == OnlineStatus.OFFLINE)
 		{
 			MessageBuilder builder = new MessageBuilder();
 			builder.addString("*Sensei kolpet is offline at the moment, sorry!*");
 			Message reply = builder.build(API);
 			e.getGroup().sendMessage(reply);
-		}
+		}*/
 	}
 	
 	public void shutdown()
